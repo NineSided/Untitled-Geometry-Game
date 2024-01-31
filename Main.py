@@ -54,27 +54,49 @@ def removeBullets(list_of_list_of_bullets):
                     list_of_bullets.remove(bullet)
 
 class Enemy:
-    def __init__(self, position, size, vertex1, vertex2, vertex3, vertex4):
+    def __init__(self, position, size, rotation, OGvertex1, OGvertex2, OGvertex3, OGvertex4):
         self.position = position
         self.size = size
+        self.rotation = rotation
 
-        self.vertex1 = vertex1
-        self.vertex2 = vertex2
-        self.vertex3 = vertex3
-        self.vertex4 = vertex4
+        self.OGvertex1 = OGvertex1
+        self.OGvertex2 = OGvertex2
+        self.OGvertex3 = OGvertex3
+        self.OGvertex4 = OGvertex4
+
+        self.vertex1 = None
+        self.vertex2 = None
+        self.vertex3 = None
+        self.vertex4 = None
 
     def createVerticies(self):
-        self.vertex1 = pygame.Vector2(int(self.position[0]-self.size/2), int(self.position[1]-self.size/2))
+        self.OGvertex1 = pygame.Vector2(int(self.position[0]-self.size/2), int(self.position[1]-self.size/2))
+        self.OGvertex2 = pygame.Vector2(int(self.OGvertex1[0]+self.size),    int(self.OGvertex1[1]))
+        self.OGvertex3 = pygame.Vector2(int(self.OGvertex1[0]),              int(self.OGvertex1[1]+self.size))
+        self.OGvertex4 = pygame.Vector2(int(self.OGvertex1[0]+self.size),    int(self.OGvertex1[1]+self.size))
 
-    def rotate(self):
-        pass
+    def rotateVerticies(self):
+        self.vertex1 = self.OGvertex1.rotate(self.rotation)
+        self.vertex2 = self.OGvertex2.rotate(self.rotation)
+        self.vertex3 = self.OGvertex3.rotate(self.rotation)
+        self.vertex4 = self.OGvertex4.rotate(self.rotation)
 
-    def render(self):
-        pass
+    def render(self, surface):
+        enemy.createVerticies()
+        enemy.rotateVerticies()
 
-enemy = Enemy([0, 0], 5, None, None, None, None)
-enemy.createVerticies()
-print(enemy.vertex1)
+        pygame.draw.rect(surface, (0, 0, 150), pygame.Rect(int(self.vertex1[0]), int(self.vertex1[1]), 2, 2))
+        pygame.draw.rect(surface, (0, 0, 150), pygame.Rect(int(self.vertex2[0]), int(self.vertex2[1]), 2, 2))
+        pygame.draw.rect(surface, (0, 0, 150), pygame.Rect(int(self.vertex3[0]), int(self.vertex3[1]), 2, 2))
+        pygame.draw.rect(surface, (0, 0, 150), pygame.Rect(int(self.vertex4[0]), int(self.vertex4[1]), 2, 2))
+
+        #pygame.gfxdraw.line(surface, int(self.vertex1[0]))
+        #pygame.gfxdraw.line(surface, )
+        #pygame.gfxdraw.line(surface, )
+        #pygame.gfxdraw.line(surface, )
+
+enemy = Enemy([0, 0], 5, 0, None, None, None, None)
+print(enemy.OGvertex1, enemy.OGvertex2, enemy.OGvertex3, enemy.OGvertex4, "|||", enemy.vertex1, enemy.vertex2, enemy.vertex3, enemy.vertex4)
 
 
 class Square:
@@ -318,11 +340,19 @@ bossbullets.append(middleCircle.create_bullets(middleCircle.boss_wave+4, None))
 player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 
 while True:
+    print(enemy.OGvertex1, enemy.OGvertex2, enemy.OGvertex3, enemy.OGvertex4, "|||", enemy.vertex1, enemy.vertex2, enemy.vertex3, enemy.vertex4)
+
+    if enemy.rotation >= 360:
+        enemy.rotation = 0
+    enemy.rotation += 1
+
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]
     middleCircle.pos = middle_circle_pos
 
     game_surface.fill((11, 10, 18))
     window.position = (windowX, windowY)
+
+    enemy.render(game_surface)
 
     if player.health > 0:
         player.move(main_inputs, player.rect, player.pos, game_surface)
