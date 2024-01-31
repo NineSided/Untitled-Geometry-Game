@@ -53,6 +53,30 @@ def removeBullets(list_of_list_of_bullets):
                 if (bullet.rect.x>610 or bullet.rect.x<-20) or (bullet.rect.y>410 or bullet.rect.y<-20):
                     list_of_bullets.remove(bullet)
 
+class Enemy:
+    def __init__(self, position, size, vertex1, vertex2, vertex3, vertex4):
+        self.position = position
+        self.size = size
+
+        self.vertex1 = vertex1
+        self.vertex2 = vertex2
+        self.vertex3 = vertex3
+        self.vertex4 = vertex4
+
+    def createVerticies(self):
+        self.vertex1 = pygame.Vector2(int(self.position[0]-self.size/2), int(self.position[1]-self.size/2))
+
+    def rotate(self):
+        pass
+
+    def render(self):
+        pass
+
+enemy = Enemy([0, 0], 5, None, None, None, None)
+enemy.createVerticies()
+print(enemy.vertex1)
+
+
 class Square:
     def __init__(self, pos, size, rot):
         self.pos = pos
