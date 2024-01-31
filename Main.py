@@ -71,9 +71,9 @@ class Enemy:
 
     def createVerticies(self):
         self.OGvertex1 = pygame.Vector2(int(self.position[0]-self.size/2), int(self.position[1]-self.size/2))
-        self.OGvertex2 = pygame.Vector2(int(self.OGvertex1[0]+self.size),    int(self.OGvertex1[1]))
-        self.OGvertex3 = pygame.Vector2(int(self.OGvertex1[0]),              int(self.OGvertex1[1]+self.size))
-        self.OGvertex4 = pygame.Vector2(int(self.OGvertex1[0]+self.size),    int(self.OGvertex1[1]+self.size))
+        self.OGvertex2 = pygame.Vector2(int(self.OGvertex1[0]+self.size),  int(self.OGvertex1[1]))
+        self.OGvertex3 = pygame.Vector2(int(self.OGvertex1[0]),            int(self.OGvertex1[1]+self.size))
+        self.OGvertex4 = pygame.Vector2(int(self.OGvertex1[0]+self.size),  int(self.OGvertex1[1]+self.size))
 
     def rotateVerticies(self):
         self.vertex1 = self.OGvertex1.rotate(self.rotation)
