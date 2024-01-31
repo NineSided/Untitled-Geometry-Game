@@ -70,7 +70,7 @@ class Enemy:
         self.vertex4 = None
 
     def createVerticies(self):
-        self.OGvertex1 = pygame.Vector2(int(self.position[0]-self.size/2), int(self.position[1]-self.size/2))
+        self.OGvertex1 = pygame.Vector2(int((self.position[0]-self.size/2)+self.position[0]), int((self.position[1]-self.size/2)+self.position[1]))
         self.OGvertex2 = pygame.Vector2(int(self.OGvertex1[0]+self.size),  int(self.OGvertex1[1]))
         self.OGvertex3 = pygame.Vector2(int(self.OGvertex1[0]),            int(self.OGvertex1[1]+self.size))
         self.OGvertex4 = pygame.Vector2(int(self.OGvertex1[0]+self.size),  int(self.OGvertex1[1]+self.size))
@@ -95,7 +95,7 @@ class Enemy:
         #pygame.gfxdraw.line(surface, )
         #pygame.gfxdraw.line(surface, )
 
-enemy = Enemy([0, 0], 5, 0, None, None, None, None)
+enemy = Enemy([110, 110], 5, 0, None, None, None, None)
 print(enemy.OGvertex1, enemy.OGvertex2, enemy.OGvertex3, enemy.OGvertex4, "|||", enemy.vertex1, enemy.vertex2, enemy.vertex3, enemy.vertex4)
 
 
