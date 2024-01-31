@@ -300,21 +300,6 @@ while True:
     game_surface.fill((11, 10, 18))
     window.position = (windowX, windowY)
 
-    middleCircle.chosenSequence = "sequenced5"
-
-    if middleCircle.fireRate > 0:
-        middleCircle.fireRate -= middleCircle.maxFireRate/60
-    if middleCircle.fireRate <= 0:
-        middleCircle.fireRate = middleCircle.maxFireRate
-        if middleCircle.chosenSequence != (middleCircle.attackTypes[0] or middleCircle.attackTypes[1]):
-            bossbullets.append(middleCircle.create_bullets(middleCircle.boss_wave+4, middleCircle.chosenSequence))
-
-    removeBullets(bossbullets)
-
-    middleCircle.render(game_surface, middleCircle.pos, middle_circle_thickness)
-    middleCircle.render_bullets(bossbullets, middle_circle_pos, game_surface)
-    middleCircle.look(player.pos)
-
     if player.health > 0:
         player.move(main_inputs, player.rect, player.pos, game_surface)
         player.render(game_surface, player.rect)
@@ -323,6 +308,9 @@ while True:
         game_surface.blit(player_health_display, (10, 10))
 
     if player.health <= 0:
+        bossbullets.append(middleCircle.create_bullets(middleCircle.boss_wave+4, None))
+        bossbullets = []
+
         player.respawnTime -= 8.33333333
         game_over_display = playerFont.render("Game over", 1, (110, 30, 60))
         game_surface.blit(game_over_display, (225, 10))
@@ -330,6 +318,21 @@ while True:
             game_over_display2 = playerFont2.render("Press any button to restart", 1, (80, 0, 30))
             game_surface.blit(game_over_display2, (178, 40))
 
+    middleCircle.chosenSequence = "sequenced5"
+
+    if middleCircle.fireRate > 0:
+        middleCircle.fireRate -= middleCircle.maxFireRate/60
+    if middleCircle.fireRate <= 0:
+        middleCircle.fireRate = middleCircle.maxFireRate
+        if middleCircle.chosenSequence != (middleCircle.attackTypes[0] or middleCircle.attackTypes[1]):
+            if player.health > 0:
+                bossbullets.append(middleCircle.create_bullets(middleCircle.boss_wave+4, middleCircle.chosenSequence))
+
+    removeBullets(bossbullets)
+
+    middleCircle.render(game_surface, middleCircle.pos, middle_circle_thickness)
+    middleCircle.render_bullets(bossbullets, middle_circle_pos, game_surface)
+    middleCircle.look(player.pos)
 
     for event in pygame.event.get():
         if event.type == KEYDOWN:
