@@ -40,7 +40,6 @@ def renderSquares(squares, surface):
     for square in squares:
         square.render(surface)
 
-
 def shake_screen():
     global windowX, windowY, shake_amount
 
