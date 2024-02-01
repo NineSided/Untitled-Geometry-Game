@@ -91,9 +91,6 @@ class Square:
         pygame.gfxdraw.line(surface, int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), (0, 150, 0))
 
 
-enemy = Square([110, 110], 5, 0, None, None, None, None)
-
-
 class Player:
     def __init__(self, pos, rect, health, respawnTime, dash_pixels):
         self.pos = pos
@@ -308,18 +305,11 @@ bossbullets.append(middleCircle.create_bullets(middleCircle.boss_wave+4, None))
 player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 
 while True:
-
-    if enemy.rotation >= 360:
-        enemy.rotation = 0
-    enemy.rotation += 1
-
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]
     middleCircle.pos = middle_circle_pos
 
     game_surface.fill((11, 10, 18))
     window.position = (windowX, windowY)
-
-    enemy.render(game_surface)
 
     if player.health > 0:
         player.move(main_inputs, player.rect, player.pos, game_surface)
