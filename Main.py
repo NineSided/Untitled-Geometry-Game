@@ -36,6 +36,14 @@ paused = False
 maxShakeAmount = 60
 shake_amount = maxShakeAmount
 
+def renderSquares(squares, surface):
+    maxTime = 3000
+    for square in squares:
+        square.render(surface)
+
+    
+
+
 def shake_screen():
     global windowX, windowY, shake_amount
 
@@ -54,7 +62,7 @@ def removeBullets(list_of_list_of_bullets):
                     list_of_bullets.remove(bullet)
 
 class Square:
-    def __init__(self, position, size, rotation, OGvertex1, OGvertex2, OGvertex3, OGvertex4):
+    def __init__(self, position, size, rotation, OGvertex1, OGvertex2, OGvertex3, OGvertex4, despawnTime):
         self.position = position
         self.size = size
         self.rotation = rotation
@@ -69,6 +77,11 @@ class Square:
         self.vertex3 = None
         self.vertex4 = None
 
+        self.despawnTime = despawnTime
+
+    def destroy(self):
+        del self
+
     def createVerticies(self):
         self.OGvertex1 = pygame.Vector2(int((0-self.size/2)), int((0-self.size/2)))
         self.OGvertex2 = pygame.Vector2(int(self.OGvertex1[0]+self.size),  int(self.OGvertex1[1]))
@@ -76,20 +89,21 @@ class Square:
         self.OGvertex4 = pygame.Vector2(int(self.OGvertex1[0]+self.size),  int(self.OGvertex1[1]+self.size))
 
     def rotateVerticies(self):
+        self.rotation += 1
+
         self.vertex1 = self.OGvertex1.rotate(self.rotation)
         self.vertex2 = self.OGvertex2.rotate(self.rotation)
         self.vertex3 = self.OGvertex3.rotate(self.rotation)
         self.vertex4 = self.OGvertex4.rotate(self.rotation)
 
     def render(self, surface):
-        enemy.createVerticies()
-        enemy.rotateVerticies()
+        self.createVerticies()
+        self.rotateVerticies()
 
         pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex2[0]+self.position[0]), int(self.vertex2[1]+self.position[1]), (0, 150, 0))
         pygame.gfxdraw.line(surface, int(self.vertex2[0]+self.position[0]), int(self.vertex2[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), (0, 150, 0))
         pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), (0, 150, 0))
         pygame.gfxdraw.line(surface, int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), (0, 150, 0))
-
 
 class Player:
     def __init__(self, pos, rect, health, respawnTime, dash_pixels):
@@ -104,11 +118,13 @@ class Player:
             self.health -= damager.damage
         list_of_damagers.remove(damager)
 
-    def bullet_collision(self, bullets_main, rect):
+    def bullet_collision(self, bullets_main, rect, damageSquares):
         for bullets in bullets_main:
             for bullet in bullets:
                 collide = pygame.Rect.colliderect(rect, bullet.rect)
                 if collide == True:
+                    square = Square([self.pos[0], self.pos[1]], 5, 0, None, None, None, None, 3000)
+                    damageSquares.append(square)
                     self.takeHealthAway(bullet, bullets)
 
     def render(self, surface, rect):
@@ -304,17 +320,21 @@ bossbullets.append(middleCircle.create_bullets(middleCircle.boss_wave+4, None))
 
 player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 
+damageSquares = []
 while True:
+
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]
     middleCircle.pos = middle_circle_pos
 
     game_surface.fill((11, 10, 18))
     window.position = (windowX, windowY)
 
+    renderSquares(damageSquares, game_surface)
+
     if player.health > 0:
         player.move(main_inputs, player.rect, player.pos, game_surface)
         player.render(game_surface, player.rect)
-        player.bullet_collision(bossbullets, player.rect)
+        player.bullet_collision(bossbullets, player.rect, damageSquares)
         player_health_display = playerFont.render(f"HP: {player.health}", 1, (100, 255, 100))
         game_surface.blit(player_health_display, (10, 10))
 
