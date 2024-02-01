@@ -37,11 +37,8 @@ maxShakeAmount = 60
 shake_amount = maxShakeAmount
 
 def renderSquares(squares, surface):
-    maxTime = 3000
     for square in squares:
         square.render(surface)
-
-    
 
 
 def shake_screen():
@@ -62,7 +59,7 @@ def removeBullets(list_of_list_of_bullets):
                     list_of_bullets.remove(bullet)
 
 class Square:
-    def __init__(self, position, size, rotation, OGvertex1, OGvertex2, OGvertex3, OGvertex4, despawnTime):
+    def __init__(self, position, size, rotation, OGvertex1, OGvertex2, OGvertex3, OGvertex4):
         self.position = position
         self.size = size
         self.rotation = rotation
@@ -76,8 +73,6 @@ class Square:
         self.vertex2 = None
         self.vertex3 = None
         self.vertex4 = None
-
-        self.despawnTime = despawnTime
 
     def destroy(self):
         del self
@@ -123,7 +118,7 @@ class Player:
             for bullet in bullets:
                 collide = pygame.Rect.colliderect(rect, bullet.rect)
                 if collide == True:
-                    square = Square([self.pos[0], self.pos[1]], 5, 0, None, None, None, None, 3000)
+                    square = Square([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, None, None, None, None)
                     damageSquares.append(square)
                     self.takeHealthAway(bullet, bullets)
 
