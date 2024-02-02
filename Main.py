@@ -83,7 +83,7 @@ class Square:
         self.OGvertex4 = pygame.Vector2(int(self.OGvertex1[0]+self.size),  int(self.OGvertex1[1]+self.size))
 
     def rotateVerticies(self):
-        self.rotation += 1
+        self.rotation += 5
 
         self.vertex1 = self.OGvertex1.rotate(self.rotation)
         self.vertex2 = self.OGvertex2.rotate(self.rotation)
@@ -296,7 +296,6 @@ class MiddleCircle:
         lookY = MATH.sin(MATH.radians(angle)) * 10
 
         self.lookDirection = [lookX, lookY]
-
 
 
 main_inputs = {"w": False, "s": False, "a": False, "d": False}
