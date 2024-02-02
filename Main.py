@@ -350,7 +350,7 @@ while True:
             game_over_display2 = playerFont2.render("Press any button to restart", 1, (80, 0, 30))
             game_surface.blit(game_over_display2, (178, 40))
 
-    middleCircle.chosenSequence = "sequenced1"
+    middleCircle.chosenSequence = "sequenced5"
 
     if middleCircle.fireRate > 0:
         middleCircle.fireRate -= middleCircle.maxFireRate/60
