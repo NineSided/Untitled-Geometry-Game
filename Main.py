@@ -58,10 +58,11 @@ def removeBullets(list_of_list_of_bullets):
                     list_of_bullets.remove(bullet)
 
 class Square:
-    def __init__(self, position, size, rotation, OGvertex1, OGvertex2, OGvertex3, OGvertex4):
+    def __init__(self, position, size, rotation, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4):
         self.position = position
         self.size = size
         self.rotation = rotation
+        self.movementVector = movementVector
 
         self.OGvertex1 = OGvertex1
         self.OGvertex2 = OGvertex2
@@ -84,6 +85,8 @@ class Square:
 
     def rotateVerticies(self):
         self.rotation += 5
+        self.position[0] += self.movementVector[0]
+        self.position[1] += self.movementVector[1]
 
         self.vertex1 = self.OGvertex1.rotate(self.rotation)
         self.vertex2 = self.OGvertex2.rotate(self.rotation)
@@ -91,6 +94,11 @@ class Square:
         self.vertex4 = self.OGvertex4.rotate(self.rotation)
 
     def render(self, surface):
+        if self.movementVector[0] == 0:
+            self.movementVector[0] = random.randint(-5, 5)
+        if self.movementVector[1] == 0:
+            self.movementVector[1] = random.randint(-5, 5)
+
         self.createVerticies()
         self.rotateVerticies()
 
@@ -117,7 +125,7 @@ class Player:
             for bullet in bullets:
                 collide = pygame.Rect.colliderect(rect, bullet.rect)
                 if collide == True:
-                    square = Square([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, None, None, None, None)
+                    square = Square([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None)
                     damageSquares.append(square)
                     self.takeHealthAway(bullet, bullets)
 
@@ -342,7 +350,7 @@ while True:
             game_over_display2 = playerFont2.render("Press any button to restart", 1, (80, 0, 30))
             game_surface.blit(game_over_display2, (178, 40))
 
-    middleCircle.chosenSequence = "sequenced5"
+    middleCircle.chosenSequence = "sequenced4"
 
     if middleCircle.fireRate > 0:
         middleCircle.fireRate -= middleCircle.maxFireRate/60
