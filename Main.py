@@ -305,7 +305,7 @@ middle_circle_thickness = 1
 middle_circle_pos = [windowX-monitor_size[0], windowY-monitor_size[1]]
 print(middle_circle_pos)
 
-player = Player([10, 10], pygame.Rect(0, 0, 15, 15), 100, 500, [])
+player = Player([200, 100], pygame.Rect(0, 0, 15, 15), 100, 500, [])
 middleCircle = MiddleCircle(middle_circle_pos, 0, "sequenced1", 1000, 1000, ["random", "bigRandom", "sequenced1", "sequenced2", "sequenced3", "sequenced4", "sequenced5"], True, 0, [0, 0])
 
 bossbullets = []
