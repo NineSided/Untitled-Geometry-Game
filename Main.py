@@ -84,7 +84,7 @@ class Square:
         self.OGvertex4 = pygame.Vector2(int(self.OGvertex1[0]+self.size),  int(self.OGvertex1[1]+self.size))
 
     def rotateVerticies(self):
-        self.rotation += 5
+        self.rotation += int((self.position[0])+(self.position[1]))
         self.position[0] += self.movementVector[0]
         self.position[1] += self.movementVector[1]
 
