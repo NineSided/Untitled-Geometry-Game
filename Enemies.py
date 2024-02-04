@@ -8,4 +8,5 @@ class SquareEnemy:
 
     def pointToTarget(target):
     	targetX, targetY = target.position[0], target.position[1]
-    	
+
+
