@@ -29,7 +29,7 @@ class Player:
                     self.takeHealthAway(bullet, bullets)
 
     def render(self, surface, rect):
-        gfxdraw.aacircle(surface, int(rect.x+(rect.width/2)), int(rect.y+(rect.height/2)), 8, (0, 255, 0))
+        gfxdraw.aacircle(surface, int(rect.x+(rect.width/2)), int(rect.y+(rect.height/2)), 10, (0, 255, 0))
         #pygame.draw.rect(surface, (11, 147, 255), rect)
 
     def move(self, main_inputs, rect, pos, surface):

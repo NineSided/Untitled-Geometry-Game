@@ -3,6 +3,8 @@ from ExtensionFiles import Enemies
 from ExtensionFiles import Bosses
 from ExtensionFiles import Projectiles
 
+Bosses.__init__(Projectiles)
+
 import pygame, sys, random
 from pygame import *
 
@@ -12,7 +14,7 @@ from pygame import gfxdraw
 pygame.init()
 pygame.font.init()
 
-import math as MATH
+import math as MATHd
 import time as TIME
 
 clock = pygame.time.Clock()
@@ -117,7 +119,6 @@ main_inputs = {"w": False, "s": False, "a": False, "d": False}
 
 middle_circle_thickness = 1
 middle_circle_pos = [windowX-monitor_size[0], windowY-monitor_size[1]]
-print(middle_circle_pos)
 
 player = Player.Player([200, 100], pygame.Rect(0, 0, 15, 15), 100, 500, [])
 middleCircle = Bosses.CircleBoss(middle_circle_pos, 0, "sequenced1", 1000, 1000, ["random", "bigRandom", "sequenced1", "sequenced2", "sequenced3", "sequenced4", "sequenced5"], True, 0, [0, 0])
@@ -138,6 +139,12 @@ while True:
 
     renderSquares(damageSquares, game_surface)
 
+    #Enemies--------------------------
+    squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, [0, 0], None, None, None, None, player)
+    squareEnemy.render(game_surface)
+
+    #Player Health Managing---------------------
+
     if player.health > 0:
         player.move(main_inputs, player.rect, player.pos, game_surface)
         player.render(game_surface, player.rect)
@@ -156,6 +163,8 @@ while True:
             game_over_display2 = playerFont2.render("Press any button to restart", 1, (80, 0, 30))
             game_surface.blit(game_over_display2, (178, 40))
 
+    #Boss-------------------------------------------------
+
     middleCircle.chosenSequence = "sequenced5"
 
     if middleCircle.fireRate > 0:
@@ -171,6 +180,8 @@ while True:
     middleCircle.render(game_surface, middleCircle.pos, middle_circle_thickness)
     middleCircle.render_bullets(bossbullets, middle_circle_pos, game_surface)
     middleCircle.look(player.pos)
+
+    #Input Loop-----------------------------------------------
 
     for event in pygame.event.get():
         if event.type == KEYDOWN:

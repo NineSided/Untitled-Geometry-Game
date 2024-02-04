@@ -1,4 +1,7 @@
 import pygame
+from pygame import gfxdraw
+
+pygame.init()
 
 class CircleBossBullet:
     def __init__(self, rect, movementPos, direction, damage):
