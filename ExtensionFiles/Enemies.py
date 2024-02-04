@@ -22,8 +22,6 @@ class SquareEnemy:
         self.vertex3 = None
         self.vertex4 = None
 
-        print(target)
-
     def destroy(self):
         del self
 
