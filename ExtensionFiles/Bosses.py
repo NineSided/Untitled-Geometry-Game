@@ -2,7 +2,6 @@ import random
 import math as MATH
 
 import Projectiles
-
 CircleBossBullet = Projectiles.CircleBossBullet
 
 import pygame
