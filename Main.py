@@ -285,7 +285,6 @@ player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 
 damageSquares = []
 while True:
-
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]
     middleCircle.pos = middle_circle_pos
 
