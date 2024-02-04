@@ -1,10 +1,6 @@
 import pygame, sys, random
 from pygame import *
 
-
-
-
-
 from pygame._sdl2 import Window
 from pygame import gfxdraw
 
