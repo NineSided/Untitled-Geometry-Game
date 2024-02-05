@@ -13,7 +13,7 @@ from ExtensionFiles import Enemies
 from ExtensionFiles import Bosses
 from ExtensionFiles import Projectiles
 
-Bosses.__init__(Projectiles)
+Bosses.init(Projectiles)
 
 import pygame, sys, random
 from pygame import *

@@ -9,7 +9,7 @@ from pygame import gfxdraw
 
 pygame.init()
 
-def __init__(projectiles):
+def init(projectiles):
     global Projectiles, CircleBossBullet, init
 
     Projectiles = projectiles
