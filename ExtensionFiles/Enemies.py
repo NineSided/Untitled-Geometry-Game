@@ -36,7 +36,7 @@ class SquareEnemy:
         targetX, targetY = self.target.pos[0], self.target.pos[1]
         rel_x, rel_y = targetX-self.position[0], targetY-self.position[1]
 
-        angle = (180/MATH.pi)*MATH.atan2(rel_y, rel_x)
+        self.rotation = (180/MATH.pi)*MATH.atan2(rel_y, rel_x)
 
     def rotateVerticies(self):
         self.getRotationToTarget()

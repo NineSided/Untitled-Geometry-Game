@@ -6,7 +6,6 @@ def install(package):
     else:
         pip._internal.main(['install', package])
 
-# Example
 install('pygame-ce')
 
 from ExtensionFiles import Player
