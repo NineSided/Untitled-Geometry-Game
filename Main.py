@@ -140,6 +140,8 @@ bossbullets.append(middleCircle.create_bullets(middleCircle.boss_wave+4, None))
 player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 
 damageSquares = []
+
+squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, 0, [0, 0], None, None, None, None, player)
 while True:
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]
     middleCircle.pos = middle_circle_pos
@@ -150,8 +152,8 @@ while True:
     renderSquares(damageSquares, game_surface)
 
     #Enemies--------------------------
-    squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, [0, 0], None, None, None, None, player)
     squareEnemy.render(game_surface)
+
 
     #Player Health Managing---------------------
 
