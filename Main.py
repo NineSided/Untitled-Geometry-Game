@@ -24,7 +24,7 @@ from pygame import gfxdraw
 pygame.init()
 pygame.font.init()
 
-import math as MATHd
+import math as MATH
 import time as TIME
 
 clock = pygame.time.Clock()
@@ -141,7 +141,7 @@ player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 
 damageSquares = []
 
-squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, 0, [0, 0], None, None, None, None, player)
+squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, 0, [0, 0], None, None, None, None, None, player)
 while True:
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]
     middleCircle.pos = middle_circle_pos
@@ -154,12 +154,13 @@ while True:
     #Enemies--------------------------
     squareEnemy.render(game_surface)
 
-
     #Player Health Managing---------------------
+    pygame.draw.rect(game_surface, (255, 0, 0), player.rect)
 
     if player.health > 0:
-        player.move(main_inputs, player.rect, player.pos, game_surface)
         player.render(game_surface, player.rect)
+        player.move(main_inputs, player.rect, player.pos, game_surface)
+        player.enemyCollision(squareEnemy)
         player.bullet_collision(bossbullets, player.rect, damageSquares, Square)
         player_health_display = playerFont.render(f"HP: {player.health}", 1, (100, 255, 100))
         game_surface.blit(player_health_display, (10, 10))

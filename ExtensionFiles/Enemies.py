@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 
 class SquareEnemy:
-    def __init__(self, position, size, rotation, rotationMovement, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4, target):
+    def __init__(self, position, size, rotation, rotationMovement, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4, rotatedVerticies, target):
         self.position = position
         self.size = size
         self.rotation = rotation
@@ -15,6 +15,8 @@ class SquareEnemy:
         self.OGvertex2 = OGvertex2
         self.OGvertex3 = OGvertex3
         self.OGvertex4 = OGvertex4
+
+        self.rotatedVerticies = rotatedVerticies
 
         self.target = target
 
@@ -52,6 +54,8 @@ class SquareEnemy:
         self.vertex2 = self.OGvertex2.rotate(self.rotation)
         self.vertex3 = self.OGvertex3.rotate(self.rotation)
         self.vertex4 = self.OGvertex4.rotate(self.rotation)
+
+        self.rotatedVerticies = [self.vertex1, self.vertex2, self.vertex3, self.vertex4]
 
     def render(self, surface):
         self.createVerticies()

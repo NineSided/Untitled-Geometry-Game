@@ -28,20 +28,34 @@ class Player:
                     damageSquares.append(square)
                     self.takeHealthAway(bullet, bullets)
 
+    def enemyCollision(self, enemy):
+        collidepoints = []
+        for i in range(len(enemy.rotatedVerticies)):
+            if (self.rect.collidepoint(enemy.rotatedVerticies[i])):
+                print("collided")
+
     def render(self, surface, rect):
         gfxdraw.aacircle(surface, int(rect.x+(rect.width/2)), int(rect.y+(rect.height/2)), 10, (0, 255, 0))
         #pygame.draw.rect(surface, (11, 147, 255), rect)
 
     def move(self, main_inputs, rect, pos, surface):
+        rect.x = self.pos[0]
+        rect.y = self.pos[1]
         speed = 3
         if main_inputs["w"] == True:
             pos[1] -= speed
+            rect.x = self.pos[0]
+            rect.y = self.pos[1]
         if main_inputs["s"] == True:
             pos[1] += speed
+            rect.x = self.pos[0]
+            rect.y = self.pos[1]
         if main_inputs["a"] == True:
             pos[0] -= speed
+            rect.x = self.pos[0]
+            rect.y = self.pos[1]
         if main_inputs["d"] == True:
             pos[0] += speed
-        rect.x = self.pos[0]
-        rect.y = self.pos[1]
+            rect.x = self.pos[0]
+            rect.y = self.pos[1]
 
