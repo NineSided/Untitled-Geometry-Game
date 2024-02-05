@@ -8,6 +8,7 @@ def install(package):
 
 install('pygame-ce')
 
+
 from ExtensionFiles import Player
 from ExtensionFiles import Enemies
 from ExtensionFiles import Bosses
