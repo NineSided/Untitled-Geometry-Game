@@ -130,7 +130,7 @@ main_inputs = {"w": False, "s": False, "a": False, "d": False}
 middle_circle_thickness = 1
 middle_circle_pos = [windowX-monitor_size[0], windowY-monitor_size[1]]
 
-player = Player.Player([200, 100], pygame.Rect(0, 0, 15, 15), 100, 500, [])
+player = Player.Player([200, 100], pygame.Rect(0, 0, 15, 15), 100, 500, 10)
 middleCircle = Bosses.CircleBoss(middle_circle_pos, 0, "sequenced1", 1000, 1000, ["random", "bigRandom", "sequenced1", "sequenced2", "sequenced3", "sequenced4", "sequenced5"], True, 0, [0, 0])
 
 bossbullets = []
@@ -158,9 +158,9 @@ while True:
     pygame.draw.rect(game_surface, (255, 0, 0), player.rect)
 
     if player.health > 0:
+        player.enemyCollision(game_surface, squareEnemy)
         player.render(game_surface, player.rect)
         player.move(main_inputs, player.rect, player.pos, game_surface)
-        player.enemyCollision(squareEnemy)
         player.bullet_collision(bossbullets, player.rect, damageSquares, Square)
         player_health_display = playerFont.render(f"HP: {player.health}", 1, (100, 255, 100))
         game_surface.blit(player_health_display, (10, 10))

@@ -7,12 +7,14 @@ from pygame import gfxdraw
 pygame.init()
 
 class Player:
-    def __init__(self, pos, rect, health, respawnTime, dash_pixels):
+    def __init__(self, pos, rect, health, respawnTime, diameter):
         self.pos = pos
         self.rect = rect
         self.health = health
         self.respawnTime = respawnTime
-        self.dash_pixels = dash_pixels
+
+        self.diameter = diameter
+        self.radius = diameter/2
 
     def takeHealthAway(self, damager, list_of_damagers):
         if self.health > 0:
@@ -28,14 +30,28 @@ class Player:
                     damageSquares.append(square)
                     self.takeHealthAway(bullet, bullets)
 
-    def enemyCollision(self, enemy):
+    def enemyCollision(self, surface, enemy):
         collidepoints = []
+        rect = self.rect
         for i in range(len(enemy.rotatedVerticies)):
-            if (self.rect.collidepoint(enemy.rotatedVerticies[i])):
-                print("collided")
+            point = ((int(enemy.rotatedVerticies[0][0]), 
+                      int(enemy.rotatedVerticies[0][1])))
+            enemyMiddle = (int((enemy.vertex1[0]+enemy.position[0])), 
+                           int((enemy.vertex1[1]+enemy.position[1])))
+            playerMiddle = (int(rect.x+(rect.width/2)), 
+                            int(rect.y+(rect.height/2)))
+            distance = MATH.hypot(playerMiddle[0]-enemyMiddle[0], playerMiddle[0]-enemyMiddle[1])
+            pygame.gfxdraw.pixel(surface, enemyMiddle[0], enemyMiddle[1], (255, 255, 255))
+            pygame.gfxdraw.pixel(surface, playerMiddle[0], playerMiddle[1], (255, 255, 255))
+            if distance <= 0:
+                collidepoints = "collide"
+            else:
+                collidepoints = "no collision"
+
+        return collidepoints
 
     def render(self, surface, rect):
-        gfxdraw.aacircle(surface, int(rect.x+(rect.width/2)), int(rect.y+(rect.height/2)), 10, (0, 255, 0))
+        gfxdraw.aacircle(surface, int(rect.x+(rect.width/2)), int(rect.y+(rect.height/2)), self.diameter, (0, 255, 0))
         #pygame.draw.rect(surface, (11, 147, 255), rect)
 
     def move(self, main_inputs, rect, pos, surface):
