@@ -36,14 +36,14 @@ class Player:
         for i in range(len(enemy.rotatedVerticies)):
             point = ((int(enemy.rotatedVerticies[0][0]), 
                       int(enemy.rotatedVerticies[0][1])))
-            enemyMiddle = (int((enemy.vertex1[0]+enemy.position[0])), 
-                           int((enemy.vertex1[1]+enemy.position[1])))
+            enemyMiddle = (int((enemy.vertex4[0]+enemy.position[0])), 
+                           int((enemy.vertex4[1]+enemy.position[1])))
             playerMiddle = (int(rect.x+(rect.width/2)), 
                             int(rect.y+(rect.height/2)))
-            distance = MATH.hypot(playerMiddle[0]-enemyMiddle[0], playerMiddle[0]-enemyMiddle[1])
+            distance = MATH.hypot(abs(enemyMiddle[0]-playerMiddle[0]), abs(enemyMiddle[1]-playerMiddle[0]))
             pygame.gfxdraw.pixel(surface, enemyMiddle[0], enemyMiddle[1], (255, 255, 255))
             pygame.gfxdraw.pixel(surface, playerMiddle[0], playerMiddle[1], (255, 255, 255))
-            if distance <= 0:
+            if distance <= self.radius:
                 collidepoints = "collide"
             else:
                 collidepoints = "no collision"
