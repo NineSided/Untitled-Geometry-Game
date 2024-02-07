@@ -16,14 +16,10 @@ class Player:
         self.diameter = diameter
         self.radius = diameter/2
 
-    def takeHealthAway(self, damager, damagerRequired, list_of_damagers):
+    def takeHealthAway(self, damager, list_of_damagers):
         if self.health > 0:
             self.health -= damager.damage
-            try:
-                del damager
-            except:
-                if damagerRequired == True:
-                    list_of_damagers.remove(damager)
+        list_of_damagers.remove(damager)
 
     def bullet_collision(self, bullets_main, rect, damageSquares, squareClass):
         for bullets in bullets_main:
@@ -32,10 +28,9 @@ class Player:
                 if collide == True:
                     square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None)
                     damageSquares.append(square)
-                    self.takeHealthAway(bullet, True, bullets)
+                    self.takeHealthAway(bullet, bullets)
 
-    def enemyCollision(self, surface, enemy):
-        collidepoints = []
+    def enemyCollision(self, surface, enemy, enemies):
         rect = self.rect
         for i in range(len(enemy.rotatedVerticies)):
             point = ((int(enemy.rotatedVerticies[0][0]), 
@@ -53,7 +48,7 @@ class Player:
             pygame.gfxdraw.pixel(surface, playerMiddle[0], playerMiddle[1], (255, 255, 255))
             print(distance)
             if distance <= self.radius*2.5:
-                self.takeHealthAway(enemy, False, None)
+                self.takeHealthAway(enemy, enemies)
 
     def render(self, surface, rect):
         gfxdraw.aacircle(surface, int(rect.x+(rect.width/2)), int(rect.y+(rect.height/2)), self.diameter, (0, 255, 0))

@@ -143,7 +143,10 @@ player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 
 damageSquares = []
 
+enemies = []
 squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, 15, 0, [0, 0], None, None, None, None, None, player)
+
+enemies.append(squareEnemy)
 while True:
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]
     middleCircle.pos = middle_circle_pos
@@ -159,7 +162,7 @@ while True:
     #Player Health Managing---------------------
 
     if player.health > 0:
-        player.enemyCollision(game_surface, squareEnemy)
+        player.enemyCollision(game_surface, squareEnemy, enemies)
         player.render(game_surface, player.rect)
         player.move(main_inputs, player.rect, player.pos, game_surface)
         player.bullet_collision(bossbullets, player.rect, damageSquares, Square)
