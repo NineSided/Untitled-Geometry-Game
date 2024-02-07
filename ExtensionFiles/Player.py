@@ -16,10 +16,14 @@ class Player:
         self.diameter = diameter
         self.radius = diameter/2
 
-    def takeHealthAway(self, damager, list_of_damagers):
+    def takeHealthAway(self, damager, damagerRequired, list_of_damagers):
         if self.health > 0:
             self.health -= damager.damage
-        list_of_damagers.remove(damager)
+            try:
+                del damager
+            except:
+                if damagerRequired == True:
+                    list_of_damagers.remove(damager)
 
     def bullet_collision(self, bullets_main, rect, damageSquares, squareClass):
         for bullets in bullets_main:
@@ -28,7 +32,7 @@ class Player:
                 if collide == True:
                     square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None)
                     damageSquares.append(square)
-                    self.takeHealthAway(bullet, bullets)
+                    self.takeHealthAway(bullet, True, bullets)
 
     def enemyCollision(self, surface, enemy):
         collidepoints = []
@@ -40,15 +44,16 @@ class Player:
                            int((enemy.vertex4[1]+enemy.position[1])))
             playerMiddle = (int(rect.x+(rect.width/2)), 
                             int(rect.y+(rect.height/2)))
-            distance = MATH.hypot(abs(enemyMiddle[0]-playerMiddle[0]), abs(enemyMiddle[1]-playerMiddle[0]))
+            x1 = playerMiddle[0]
+            y1 = playerMiddle[1]
+            x2 = enemyMiddle[0]
+            y2 = enemyMiddle[1]
+            distance = ((x1 - x2)**2 + (y1 - y2)**2)**0.5
             pygame.gfxdraw.pixel(surface, enemyMiddle[0], enemyMiddle[1], (255, 255, 255))
             pygame.gfxdraw.pixel(surface, playerMiddle[0], playerMiddle[1], (255, 255, 255))
-            if distance <= self.radius:
-                collidepoints = "collide"
-            else:
-                collidepoints = "no collision"
-
-        return collidepoints
+            print(distance)
+            if distance <= self.radius*2.5:
+                self.takeHealthAway(enemy, False, None)
 
     def render(self, surface, rect):
         gfxdraw.aacircle(surface, int(rect.x+(rect.width/2)), int(rect.y+(rect.height/2)), self.diameter, (0, 255, 0))

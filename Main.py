@@ -102,6 +102,8 @@ class Square:
 
     def rotateVerticies(self):
         self.rotation += int((self.position[0])+(self.position[1]))
+        if self.rotation > 360:
+            self.rotation = 0
         self.position[0] += self.movementVector[0]
         self.position[1] += self.movementVector[1]
 
@@ -141,7 +143,7 @@ player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 
 damageSquares = []
 
-squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, 0, [0, 0], None, None, None, None, None, player)
+squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, 15, 0, [0, 0], None, None, None, None, None, player)
 while True:
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]
     middleCircle.pos = middle_circle_pos
@@ -155,7 +157,6 @@ while True:
     squareEnemy.render(game_surface)
 
     #Player Health Managing---------------------
-    pygame.draw.rect(game_surface, (255, 0, 0), player.rect)
 
     if player.health > 0:
         player.enemyCollision(game_surface, squareEnemy)

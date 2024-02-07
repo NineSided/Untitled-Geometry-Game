@@ -4,10 +4,11 @@ import pygame
 pygame.init()
 
 class SquareEnemy:
-    def __init__(self, position, size, rotation, rotationMovement, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4, rotatedVerticies, target):
+    def __init__(self, position, size, rotation, damage, rotationMovement, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4, rotatedVerticies, target):
         self.position = position
         self.size = size
         self.rotation = rotation
+        self.damage = damage
         self.rotationMovement = rotationMovement
         self.movementVector = movementVector
 
