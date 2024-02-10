@@ -30,6 +30,11 @@ class Player:
 
     def takeHealthAway(self, damager, list_of_damagers):
         if damager in list_of_damagers:
+            for i in range(0, 3):
+                    square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None, (50, 150, 25))
+                    damageSquares.append(square)
+                    square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None, damager.colour)
+                    damageSquares.append(square)
             if self.health > 0:
                 self.health -= damager.damage
             damager.lives -= 1
@@ -42,8 +47,8 @@ class Player:
             for bullet in bullets:
                 collide = pygame.Rect.colliderect(rect, bullet.rect)
                 if collide == True:
-                    square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None)
-                    damageSquares.append(square)
+                    #square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None, (50, 150, 25))
+                    #damageSquares.append(square)
                     self.takeHealthAway(bullet, bullets)
 
     def enemyCollision(self, surface, enemy, enemies):
@@ -61,9 +66,6 @@ class Player:
             y2 = enemyMiddle[1]
             distance = ((x1 - x2)**2 + (y1 - y2)**2)**0.5
             if distance <= self.radius*2.5:
-                for i in range(0, 2):
-                    square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None)
-                    damageSquares.append(square)
                 self.takeHealthAway(enemy, enemies)
 
     def render(self, surface, rect):

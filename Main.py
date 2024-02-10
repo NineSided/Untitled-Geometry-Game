@@ -1,12 +1,12 @@
-#import pip
+import pip
 
-#def install(package):
-#    if hasattr(pip, 'main'):
-#        pip.main(['install', package])
-#    else:
-#        pip._internal.main(['install', package])
+def install(package):
+    if hasattr(pip, 'main'):
+        pip.main(['install', package])
+    else:
+        pip._internal.main(['install', package])
 
-#install('pygame-ce')
+install('pygame-ce')
 
 from ExtensionFiles import Player
 from ExtensionFiles import Enemies
@@ -39,6 +39,7 @@ main_game_surface = pygame.display.set_mode(window_size, pygame.NOFRAME)
 game_title = pygame.display.set_caption("WindowKillRipoff")
 
 game_surface = pygame.Surface(window_size)
+reflection_surface = game_surface.copy()
 
 windowX = 500 #int(monitor_size[0]/2)-int(window_size[0]/2)
 windowY = 300 #int(monitor_size[1]/2)-int(window_size[1]/2)
@@ -75,7 +76,7 @@ def removeBullets(list_of_list_of_bullets):
                     list_of_bullets.remove(bullet)
 
 class Square:
-    def __init__(self, position, size, rotation, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4):
+    def __init__(self, position, size, rotation, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4, colour):
         self.position = position
         self.size = size
         self.rotation = rotation
@@ -91,6 +92,8 @@ class Square:
         self.vertex3 = None
         self.vertex4 = None
 
+        self.colour = colour
+
     def destroy(self):
         del self
 
@@ -101,7 +104,7 @@ class Square:
         self.OGvertex4 = pygame.Vector2(int(self.OGvertex1[0]+self.size),  int(self.OGvertex1[1]+self.size))
 
     def rotateVerticies(self):
-        self.rotation += int((self.position[0])+(self.position[1]))
+        self.rotation += int((self.movementVector[0])+(self.movementVector[1]))*5
         if self.rotation > 360:
             self.rotation = 0
         self.position[0] += self.movementVector[0]
@@ -121,10 +124,10 @@ class Square:
         self.createVerticies()
         self.rotateVerticies()
 
-        pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex2[0]+self.position[0]), int(self.vertex2[1]+self.position[1]), (50, 150, 25))
-        pygame.gfxdraw.line(surface, int(self.vertex2[0]+self.position[0]), int(self.vertex2[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), (50, 150, 25))
-        pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), (50, 150, 25))
-        pygame.gfxdraw.line(surface, int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), (50, 150, 25))
+        pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex2[0]+self.position[0]), int(self.vertex2[1]+self.position[1]), self.colour)
+        pygame.gfxdraw.line(surface, int(self.vertex2[0]+self.position[0]), int(self.vertex2[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), self.colour)
+        pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), self.colour)
+        pygame.gfxdraw.line(surface, int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), self.colour)
 
 
 main_inputs = {"w": False, "s": False, "a": False, "d": False}
@@ -144,13 +147,16 @@ player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 damageSquares = []
 
 enemies = []
-squareEnemy = Enemies.SquareEnemy(1, [300, 200], 20, 0, 15, 0, [0, 0], None, None, None, None, None, player)
+squareEnemy = Enemies.SquareEnemy(1, [600, 500], 20, 0, 15, 0, 2, [0, 0], None, None, None, None, None, (255,187,51), player)
 enemies.append(squareEnemy)
 
 Player.init(Square, damageSquares)
 while True:
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]
     middleCircle.pos = middle_circle_pos
+
+    reflection_surface = game_surface.copy()
+    reflection_surface.fill((11, 10, 18))
 
     game_surface.fill((11, 10, 18))
     window.position = (windowX, windowY)
@@ -206,7 +212,7 @@ while True:
         if event.type == KEYDOWN:
             if player.respawnTime <= 0:
                 if player.health <= 0:
-                    squareEnemy = Enemies.SquareEnemy(1, [300, 200], 20, 0, 15, 0, [0, 0], None, None, None, None, None, player)
+                    squareEnemy = Enemies.SquareEnemy(1, [600, 500], 20, 0, 15, 0, 2, [0, 0], None, None, None, None, None, (255,187,51), player)
                     enemies.append(squareEnemy)
                     player.respawnTime = 500
                     player.health = 100
@@ -236,6 +242,9 @@ while True:
                 main_inputs["d"] = False
 
     surf = game_surface#pygame.transform.scale(game_surface, window_size)
+    reflectionSurf = reflection_surface
+
+    main_game_surface.blit(reflectionSurf, (20, 20))
     main_game_surface.blit(surf, (0, 0))
 
     clock.tick(60)

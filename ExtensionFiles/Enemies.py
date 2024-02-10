@@ -8,7 +8,7 @@ def renderEnemies(surface, enemies):
         enemy.render(surface)
 
 class SquareEnemy:
-    def __init__(self, lives, position, size, rotation, damage, rotationMovement, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4, rotatedVerticies, target):
+    def __init__(self, lives, position, size, rotation, damage, rotationMovement, rotationMovementMultiplier, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4, rotatedVerticies, colour, target):
         self.lives = lives
 
         self.position = position
@@ -16,6 +16,7 @@ class SquareEnemy:
         self.rotation = rotation
         self.damage = damage
         self.rotationMovement = rotationMovement
+        self.rotationMovementMultiplier = rotationMovementMultiplier
         self.movementVector = movementVector
 
         self.OGvertex1 = OGvertex1
@@ -25,6 +26,7 @@ class SquareEnemy:
 
         self.rotatedVerticies = rotatedVerticies
 
+        self.colour = colour
         self.target = target
 
         self.vertex1 = None
@@ -48,8 +50,8 @@ class SquareEnemy:
 
         angle = (180/MATH.pi)*MATH.atan2(rel_y, rel_x)
 
-        moveX = MATH.cos(MATH.radians(angle))*2
-        moveY = MATH.sin(MATH.radians(angle))*2
+        moveX = MATH.cos(MATH.radians(angle))*self.rotationMovementMultiplier
+        moveY = MATH.sin(MATH.radians(angle))*self.rotationMovementMultiplier
 
         self.rotationMovement = [moveX, moveY]
         self.rotation = angle
@@ -70,9 +72,10 @@ class SquareEnemy:
 
         self.position[0] += self.rotationMovement[0]
         self.position[1] += self.rotationMovement[1]
+        self.rotationMovementMultiplier += 0.05
 
-        pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex2[0]+self.position[0]), int(self.vertex2[1]+self.position[1]), (255,187,51))
-        pygame.gfxdraw.line(surface, int(self.vertex2[0]+self.position[0]), int(self.vertex2[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), (255,187,51))
-        pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), (255,187,51))
-        pygame.gfxdraw.line(surface, int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), (255,187,51))
+        pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex2[0]+self.position[0]), int(self.vertex2[1]+self.position[1]), self.colour)
+        pygame.gfxdraw.line(surface, int(self.vertex2[0]+self.position[0]), int(self.vertex2[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), self.colour)
+        pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), self.colour)
+        pygame.gfxdraw.line(surface, int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), self.colour)
 
