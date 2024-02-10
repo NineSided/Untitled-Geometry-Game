@@ -17,9 +17,11 @@ class Player:
         self.radius = diameter/2
 
     def takeHealthAway(self, damager, list_of_damagers):
-        if self.health > 0:
-            self.health -= damager.damage
-        list_of_damagers.remove(damager)
+        if damager in list_of_damagers:
+            if self.health > 0:
+                self.health -= damager.damage
+            damager.destroy()
+            list_of_damagers.remove(damager)
 
     def bullet_collision(self, bullets_main, rect, damageSquares, squareClass):
         for bullets in bullets_main:
@@ -44,10 +46,8 @@ class Player:
             x2 = enemyMiddle[0]
             y2 = enemyMiddle[1]
             distance = ((x1 - x2)**2 + (y1 - y2)**2)**0.5
-            pygame.gfxdraw.pixel(surface, enemyMiddle[0], enemyMiddle[1], (255, 255, 255))
-            pygame.gfxdraw.pixel(surface, playerMiddle[0], playerMiddle[1], (255, 255, 255))
-            print(distance)
             if distance <= self.radius*2.5:
+                print(enemies)
                 self.takeHealthAway(enemy, enemies)
 
     def render(self, surface, rect):

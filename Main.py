@@ -157,12 +157,13 @@ while True:
     renderSquares(damageSquares, game_surface)
 
     #Enemies--------------------------
-    squareEnemy.render(game_surface)
+    Enemies.renderEnemies(game_surface, enemies)
 
     #Player Health Managing---------------------
 
     if player.health > 0:
-        player.enemyCollision(game_surface, squareEnemy, enemies)
+        if len(enemies) > 0:
+            player.enemyCollision(game_surface, squareEnemy, enemies)
         player.render(game_surface, player.rect)
         player.move(main_inputs, player.rect, player.pos, game_surface)
         player.bullet_collision(bossbullets, player.rect, damageSquares, Square)
@@ -204,6 +205,8 @@ while True:
         if event.type == KEYDOWN:
             if player.respawnTime <= 0:
                 if player.health <= 0:
+                    squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, 15, 0, [0, 0], None, None, None, None, None, player)
+                    enemies.append(squareEnemy)
                     player.respawnTime = 500
                     player.health = 100
                     player.pos = [10, 10]

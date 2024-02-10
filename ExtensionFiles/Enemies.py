@@ -3,6 +3,10 @@ import math as MATH
 import pygame
 pygame.init()
 
+def renderEnemies(surface, enemies):
+    for enemy in enemies:
+        enemy.render(surface)
+
 class SquareEnemy:
     def __init__(self, position, size, rotation, damage, rotationMovement, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4, rotatedVerticies, target):
         self.position = position
