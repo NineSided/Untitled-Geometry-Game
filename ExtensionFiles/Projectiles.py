@@ -4,7 +4,9 @@ from pygame import gfxdraw
 pygame.init()
 
 class CircleBossBullet:
-    def __init__(self, rect, movementPos, direction, damage):
+    def __init__(self, lives, rect, movementPos, direction, damage):
+        self.lives = lives
+
         self.rect = rect
         self.movementPos = movementPos
         self.direction = direction

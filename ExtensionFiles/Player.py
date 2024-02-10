@@ -1,10 +1,22 @@
 import random
 import math as MATH
 
+init: bool = False
+
 import pygame
 from pygame import gfxdraw
 
 pygame.init()
+
+squareClass = None
+damageSquares = None
+
+def init(squareclass, damagesquares):
+    global squareClass, damageSquares
+
+    squareClass = squareclass
+    damageSquares = damagesquares
+    init = True
 
 class Player:
     def __init__(self, pos, rect, health, respawnTime, diameter):
@@ -20,8 +32,10 @@ class Player:
         if damager in list_of_damagers:
             if self.health > 0:
                 self.health -= damager.damage
-            damager.destroy()
-            list_of_damagers.remove(damager)
+            damager.lives -= 1
+            if damager.lives <= 0:
+                damager.destroy()
+                list_of_damagers.remove(damager)
 
     def bullet_collision(self, bullets_main, rect, damageSquares, squareClass):
         for bullets in bullets_main:
@@ -47,7 +61,9 @@ class Player:
             y2 = enemyMiddle[1]
             distance = ((x1 - x2)**2 + (y1 - y2)**2)**0.5
             if distance <= self.radius*2.5:
-                print(enemies)
+                for i in range(0, 2):
+                    square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None)
+                    damageSquares.append(square)
                 self.takeHealthAway(enemy, enemies)
 
     def render(self, surface, rect):

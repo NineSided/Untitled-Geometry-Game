@@ -8,7 +8,9 @@ def renderEnemies(surface, enemies):
         enemy.render(surface)
 
 class SquareEnemy:
-    def __init__(self, position, size, rotation, damage, rotationMovement, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4, rotatedVerticies, target):
+    def __init__(self, lives, position, size, rotation, damage, rotationMovement, movementVector, OGvertex1, OGvertex2, OGvertex3, OGvertex4, rotatedVerticies, target):
+        self.lives = lives
+
         self.position = position
         self.size = size
         self.rotation = rotation

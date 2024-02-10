@@ -144,9 +144,10 @@ player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 damageSquares = []
 
 enemies = []
-squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, 15, 0, [0, 0], None, None, None, None, None, player)
-
+squareEnemy = Enemies.SquareEnemy(2, [300, 200], 20, 0, 15, 0, [0, 0], None, None, None, None, None, player)
 enemies.append(squareEnemy)
+
+Player.init(Square, damageSquares)
 while True:
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]
     middleCircle.pos = middle_circle_pos
@@ -205,7 +206,7 @@ while True:
         if event.type == KEYDOWN:
             if player.respawnTime <= 0:
                 if player.health <= 0:
-                    squareEnemy = Enemies.SquareEnemy([300, 200], 20, 0, 15, 0, [0, 0], None, None, None, None, None, player)
+                    squareEnemy = Enemies.SquareEnemy(2, [300, 200], 20, 0, 15, 0, [0, 0], None, None, None, None, None, player)
                     enemies.append(squareEnemy)
                     player.respawnTime = 500
                     player.health = 100
