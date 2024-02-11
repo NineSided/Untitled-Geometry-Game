@@ -195,7 +195,7 @@ while True:
 
     #Boss-------------------------------------------------
 
-    middleCircle.chosenSequence = "sequenced1"
+    middleCircle.chosenSequence = "random"
 
     if middleCircle.fireRate > 0:
         middleCircle.fireRate -= middleCircle.maxFireRate/60
