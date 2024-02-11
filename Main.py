@@ -57,6 +57,10 @@ shake_amount = maxShakeAmount
 def renderSquares(squares, surface):
     for square in squares:
         square.render(surface)
+def removeSquares(squares):
+    for square in squares:
+        if (square.position[0]>610 or square.position[0] <-20) or (square.position[1]>410 or square.position[1]<-20):
+            squares.remove(square)
 
 def shake_screen():
     global windowX, windowY, shake_amount
@@ -162,6 +166,7 @@ while True:
     window.position = (windowX, windowY)
 
     renderSquares(damageSquares, game_surface)
+    removeSquares(damageSquares)
 
     #Enemies--------------------------
     Enemies.renderEnemies(game_surface, enemies)
@@ -190,7 +195,7 @@ while True:
 
     #Boss-------------------------------------------------
 
-    middleCircle.chosenSequence = "sequenced5"
+    middleCircle.chosenSequence = "sequenced1"
 
     if middleCircle.fireRate > 0:
         middleCircle.fireRate -= middleCircle.maxFireRate/60
