@@ -151,7 +151,7 @@ player_health_display = playerFont.render(str(player.health), False, (0, 0, 0))
 damageSquares = []
 
 enemies = []
-squareEnemy = Enemies.SquareEnemy(1, [600, 500], 20, 0, 15, 0, 2, [0, 0], None, None, None, None, None, (255,187,51), player)
+squareEnemy = Enemies.SquareEnemy(1, [600, 500], 20, 0, 15, 0, 2, [0, 0], None, None, None, None, None, (255,187,51), , player)
 enemies.append(squareEnemy)
 
 Player.init(Square, damageSquares)
