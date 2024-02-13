@@ -52,13 +52,13 @@ class CircleBoss:
             if pattern == "random":
                 bullets = []
                 for i in range(0, amount):
-                    bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [random.randint(-360, 360)/100, random.randint(-360, 360)/100], 5, (255, 30, 140))
+                    bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [random.randint(-360, 360)/100, random.randint(-360, 360)/100], 5, True, (255, 30, 140), 6)
                     bullets.append(bossbullet)
 
             if pattern == "bigRandom":
                 bullets = []
                 for i in range(0, 200):
-                    bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [random.randint(-360, 360)/100, random.randint(-360, 360)/100], 5, (255, 30, 140))
+                    bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [random.randint(-360, 360)/100, random.randint(-360, 360)/100], 5, True, (255, 30, 140), 6)
                     bullets.append(bossbullet)
 
             if pattern == "sequenced1":
@@ -69,7 +69,7 @@ class CircleBoss:
                     Vx = MATH.cos(angle)
                     Vy = MATH.sin(angle)
 
-                    bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, (255, 30, 140))
+                    bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, True, (255, 30, 140), 6)
                     bullets.append(bossbullet)
 
             if pattern == "sequenced2":
@@ -80,7 +80,7 @@ class CircleBoss:
                     Vx = MATH.cos(angle)
                     Vy = MATH.sin(angle)
 
-                    bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, (255, 30, 140))
+                    bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, True, (255, 30, 140), 6)
                     bullets.append(bossbullet)
 
             if pattern == "sequenced3":
@@ -93,7 +93,7 @@ class CircleBoss:
                         Vx = MATH.cos(angle)
                         Vy = MATH.sin(angle)
 
-                        bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, (255, 30, 140))
+                        bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, True, (255, 30, 140), 6)
                         bullets.append(bossbullet)
                 if self.sequencing == False:
                     self.maxFireRate = 5000
@@ -103,7 +103,7 @@ class CircleBoss:
                         Vx = MATH.cos(angle)
                         Vy = MATH.sin(angle)
 
-                        bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, (255, 30, 140))
+                        bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, True, (255, 30, 140), 6)
                         bullets.append(bossbullet)
 
             if pattern == "sequenced4":
@@ -115,7 +115,7 @@ class CircleBoss:
                     Vy = MATH.sin(angle)
 
                     self.sequencing_rotation += 5
-                    bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, (255, 30, 140))
+                    bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, True, (255, 30, 140), 6)
                     bullets.append(bossbullet)
 
             if pattern == "sequenced5":
@@ -128,7 +128,7 @@ class CircleBoss:
                         Vy = MATH.sin(angle)
 
                         self.sequencing_rotation += 5
-                        bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, (255, 30, 140))
+                        bossbullet = CircleBossBullet(1, pygame.Rect(0, 0, 0, 0), [0, 0], [Vx, Vy], 5, True, (255, 30, 140), 6)
                         bullets.append(bossbullet)
 
             self.boss_wave += 1
