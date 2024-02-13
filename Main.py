@@ -1,12 +1,12 @@
-import pip
-
-def install(package):
-    if hasattr(pip, 'main'):
-        pip.main(['install', package])
-    else:
-        pip._internal.main(['install', package])
-
-install('pygame-ce')
+#import pip
+#
+#def install(package):
+#    if hasattr(pip, 'main'):
+#        pip.main(['install', package])
+#    else:
+#        pip._internal.main(['install', package])
+#
+#install('pygame-ce')
 
 from ExtensionFiles import Player
 from ExtensionFiles import Enemies
