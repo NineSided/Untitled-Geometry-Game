@@ -31,10 +31,11 @@ class Player:
     def takeHealthAway(self, damager, list_of_damagers):
         if damager in list_of_damagers:
             for i in range(0, damager.particleAmount):
-                    square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None, (50, 150, 25))
-                    damageSquares.append(square)
                     square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None, damager.colour)
                     damageSquares.append(square)
+            for i in range(0, 5):
+                square = squareClass([self.pos[0]+random.randint(0, 8), self.pos[1]+random.randint(0, 8)], 5, 0, [random.randint(-5, 5), random.randint(-5, 5)], None, None, None, None, (50, 150, 25))
+                damageSquares.append(square)
             if self.health > 0:
                 self.health -= damager.damage
             damager.lives -= 1
