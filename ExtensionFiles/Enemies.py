@@ -82,3 +82,19 @@ class SquareEnemy:
         pygame.gfxdraw.line(surface, int(self.vertex1[0]+self.position[0]), int(self.vertex1[1]+self.position[1]), int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), self.colour)
         pygame.gfxdraw.line(surface, int(self.vertex3[0]+self.position[0]), int(self.vertex3[1]+self.position[1]), int(self.vertex4[0]+self.position[0]), int(self.vertex4[1]+self.position[1]), self.colour)
 
+class BlockEnemy:
+    def __init__(self, lives, position, size, damage, canDamage, colour, particleAmount):
+        self.lives = lives
+
+        self.position = position
+        self.size = size
+
+        self.damage = damage
+        self.canDamage = canDamage
+
+        self.colour = colour
+        self.particleAmount = particleAmount
+
+    def spawn(self):
+        pass
+
