@@ -154,6 +154,8 @@ enemies = []
 squareEnemy = Enemies.SquareEnemy(1, [600, 500], 20, 0, 15, 0, 2, [0, 0], None, None, None, None, None, True, (255,187,51), 6, player)
 enemies.append(squareEnemy)
 
+Enemies.renderEnemies(game_surface, enemies)
+
 Player.init(Square, damageSquares)
 while True:
     middle_circle_pos = [(monitor_size[0]/2)-windowX, (monitor_size[1]/2)-windowY]

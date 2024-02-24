@@ -55,8 +55,6 @@ class Player:
     def enemyCollision(self, surface, enemy, enemies):
         rect = self.rect
         for i in range(len(enemy.rotatedVerticies)):
-            point = ((int(enemy.rotatedVerticies[0][0]), 
-                      int(enemy.rotatedVerticies[0][1])))
             enemyMiddle = (int((enemy.vertex4[0]+enemy.position[0])), 
                            int((enemy.vertex4[1]+enemy.position[1])))
             playerMiddle = (int(rect.x+(rect.width/2)), 

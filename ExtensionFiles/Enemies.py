@@ -1,4 +1,5 @@
 import math as MATH
+import random
 
 import pygame
 pygame.init()
@@ -60,7 +61,21 @@ class SquareEnemy:
         self.rotation = angle
 
     def rotateVerticies(self):
-        self.getRotationToTarget()
+        if self.vertex1 == None:
+            self.getRotationToTarget()
+        if self.vertex1 != None:
+            rect = self.target.rect
+            enemyMiddle = (int((self.vertex4[0]+self.position[0])), 
+                           int((self.vertex4[1]+self.position[1])))
+            playerMiddle = (int(rect.x+(rect.width/2)), 
+                            int(rect.y+(rect.height/2)))
+            x1 = playerMiddle[0]
+            y1 = playerMiddle[1]
+            x2 = enemyMiddle[0]
+            y2 = enemyMiddle[1]
+            distance = ((x1 - x2)**2 + (y1 - y2)**2)**0.5
+            if distance >= self.target.radius*20:
+                self.getRotationToTarget()
 
         self.vertex1 = self.OGvertex1.rotate(self.rotation)
         self.vertex2 = self.OGvertex2.rotate(self.rotation)
